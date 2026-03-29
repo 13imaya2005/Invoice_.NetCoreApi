@@ -10,7 +10,7 @@ namespace InvoiceCoreAPI.Controllers
     [ApiController]
     public class ItemMasterController : ControllerBase
     {
-        private readonly IItemMasterService _service;
+        private readonly IItemMasterService _service;//test
 
         public ItemMasterController(IItemMasterService service)
         {
