@@ -1,6 +1,7 @@
 ﻿using InvoiceCoreAPI.Contracts;
 using InvoiceCoreAPI.DTO;
 using InvoiceCoreAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace InvoiceCoreAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ItemMasterController : ControllerBase
     {
         private readonly IItemMasterService _service;
