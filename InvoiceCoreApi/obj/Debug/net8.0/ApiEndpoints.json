@@ -43,6 +43,42 @@
   },
   {
     "ContainingType": "InvoiceCoreAPI.Controllers.ItemMasterController",
+    "Method": "GetAllPaged",
+    "RelativePath": "api/ItemMaster/GetAllPaged",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "catCode",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "itemName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "uom",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "InvoiceCoreAPI.Controllers.ItemMasterController",
     "Method": "GetById",
     "RelativePath": "api/ItemMaster/GetById/{id}",
     "HttpMethod": "GET",
