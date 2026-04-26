@@ -1,6 +1,7 @@
 ﻿using InvoiceCoreAPI.Contracts;
 using InvoiceCoreAPI.DTO;
 using InvoiceCoreAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace InvoiceCoreAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ItemMasterController : ControllerBase
     {
         private readonly IItemMasterService _service;
@@ -179,6 +181,41 @@ namespace InvoiceCoreAPI.Controllers
                 {
                     Success = false,
                     Message = "Error deleting item",
+                    Error = new ApiError
+                    {
+                        Code = "500",
+                        Details = ex.Message
+                    }
+                });
+            }
+        }
+        [HttpGet("GetAllPaged")]
+        public async Task<IActionResult> GetAllPaged(
+        string? catCode,
+        string? itemName,
+        string? uom,
+        int pageNumber = 1,
+        int pageSize = 10)
+        {
+            try
+            {
+                var result = await _service.GetAllPagedAsync(
+                    catCode, itemName, uom, pageNumber, pageSize);
+
+                return Ok(new ApiResponse<IEnumerable<ItemMasterDto>>
+                {
+                    Success = true,
+                    Message = "Items retrieved successfully",
+                    Data = result.Data,
+                    TotalRecords = result.TotalRecords
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ApiResponse<string>
+                {
+                    Success = false,
+                    Message = "Error retrieving items",
                     Error = new ApiError
                     {
                         Code = "500",

@@ -1,4 +1,5 @@
-﻿using InvoiceCoreAPI.Entities;
+﻿using InvoiceCoreApi.DTO;
+using InvoiceCoreAPI.Entities;
 
 namespace InvoiceCoreAPI.Contracts;
 
@@ -9,4 +10,10 @@ public interface IItemmasterRepository
     Task<Itemmaster?> GetByIdAsync(int id);
     Task<bool> UpdateAsync(Itemmaster itemmaster);
     Task<bool> DeleteAsync(int id);
+    Task<PagedResultDto<Itemmaster>> GetAllPagedAsync(
+    string? catCode,
+    string? itemName,
+    string? uom,
+    int pageNumber,
+    int pageSize);
 }
