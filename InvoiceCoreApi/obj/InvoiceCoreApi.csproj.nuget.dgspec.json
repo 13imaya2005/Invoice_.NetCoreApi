@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\CoreApi\\InvoiceManagementSystems\\Invoice_.NetCoreApi\\InvoiceCoreApi\\InvoiceCoreApi.csproj": {}
+    "D:\\test\\Api\\Invoice_.NetCoreApi\\InvoiceCoreApi\\InvoiceCoreApi.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\CoreApi\\InvoiceManagementSystems\\Invoice_.NetCoreApi\\InvoiceCoreApi\\InvoiceCoreApi.csproj": {
+    "D:\\test\\Api\\Invoice_.NetCoreApi\\InvoiceCoreApi\\InvoiceCoreApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\CoreApi\\InvoiceManagementSystems\\Invoice_.NetCoreApi\\InvoiceCoreApi\\InvoiceCoreApi.csproj",
+        "projectUniqueName": "D:\\test\\Api\\Invoice_.NetCoreApi\\InvoiceCoreApi\\InvoiceCoreApi.csproj",
         "projectName": "InvoiceCoreApi",
-        "projectPath": "D:\\Projects\\CoreApi\\InvoiceManagementSystems\\Invoice_.NetCoreApi\\InvoiceCoreApi\\InvoiceCoreApi.csproj",
+        "projectPath": "D:\\test\\Api\\Invoice_.NetCoreApi\\InvoiceCoreApi\\InvoiceCoreApi.csproj",
         "packagesPath": "C:\\Users\\acer\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\CoreApi\\InvoiceManagementSystems\\Invoice_.NetCoreApi\\InvoiceCoreApi\\obj\\",
+        "outputPath": "D:\\test\\Api\\Invoice_.NetCoreApi\\InvoiceCoreApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
