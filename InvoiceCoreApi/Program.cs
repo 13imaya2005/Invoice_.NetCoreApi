@@ -3,6 +3,7 @@ using InvoiceCoreAPI.Contracts;
 using InvoiceCoreAPI.Data;
 using InvoiceCoreAPI.Mapper;
 using InvoiceCoreAPI.Repositories;
+using InvoiceCoreAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -16,8 +17,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     ));
 
 builder.Services.AddScoped<IItemmasterRepository, ItemmasterRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepositories>();
 builder.Services.AddScoped<IItemMasterService, ItemMasterService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddAutoMapper(typeof(ItemMasterProfile));
+builder.Services.AddAutoMapper(typeof(CategoryProfile));
+    
 
 // Add services to the container.
 var AllowAngular = "_allowAngular";
@@ -75,6 +80,8 @@ builder.Services.AddSwaggerGen(c => {
         }
     });
 });
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
