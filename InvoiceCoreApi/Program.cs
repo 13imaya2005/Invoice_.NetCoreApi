@@ -22,7 +22,18 @@ builder.Services.AddScoped<IItemMasterService, ItemMasterService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddAutoMapper(typeof(ItemMasterProfile));
 builder.Services.AddAutoMapper(typeof(CategoryProfile));
-    
+builder.Services.AddScoped<IUsersRepository, UsersRepositories>();
+builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddAutoMapper(typeof(UsersProfile));
+builder.Services.AddScoped<ICustomerRepoitory, CustomerRepositories>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddAutoMapper(typeof(CustomerProfile));
+builder.Services.AddScoped<IVendorRepository, VendorRepositories>();
+builder.Services.AddScoped<IVendorService,VendorService>();
+builder.Services.AddAutoMapper(typeof(VendorProfile));
+
+
+
 
 // Add services to the container.
 var AllowAngular = "_allowAngular";
@@ -92,7 +103,7 @@ if (app.Environment.IsDevelopment())
 }
 app.UseCors(AllowAngular);
 
-app.UseAuthorization();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
