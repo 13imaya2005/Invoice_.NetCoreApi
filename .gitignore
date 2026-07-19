@@ -1,6 +1,12 @@
 ﻿################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+########################################################################### Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
-/.vs/InvoiceManagementSystems.slnx/v18/.suo
-/.vs/InvoiceManagementSystems.slnx/FileContentIndex/f7aa716e-6c24-4815-8587-023b6fe37479.vsidx
+# Build files
+bin/
+obj/
