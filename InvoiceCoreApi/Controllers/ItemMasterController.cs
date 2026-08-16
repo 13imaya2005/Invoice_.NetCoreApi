@@ -4,6 +4,7 @@ using InvoiceCoreAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ProductApi.DTOs;
 
 namespace InvoiceCoreAPI.Controllers
 {
@@ -190,17 +191,13 @@ namespace InvoiceCoreAPI.Controllers
             }
         }
         [HttpGet("GetAllPaged")]
-        public async Task<IActionResult> GetAllPaged(
-        string? catCode,
-        string? itemName,
-        string? uom,
-        int pageNumber = 1,
-        int pageSize = 10)
+        public async Task<IActionResult> GetAllPaged([FromQuery]
+      ItemmasterFilterDto search)
         {
             try
             {
                 var result = await _service.GetAllPagedAsync(
-                    catCode, itemName, uom, pageNumber, pageSize);
+                    search);
 
                 return Ok(new ApiResponse<IEnumerable<ItemMasterDto>>
                 {

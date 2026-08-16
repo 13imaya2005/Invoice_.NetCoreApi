@@ -1,24 +1,21 @@
 ﻿using InvoiceCoreApi.DTO;
 using InvoiceCoreAPI.Contracts;
-
 using InvoiceCoreAPI.Data;
-
 using InvoiceCoreAPI.Entities;
-
 using Microsoft.Data.SqlClient;
-
 using Microsoft.EntityFrameworkCore;
+using ProductApi.DTOs;
 using System.Data;
 
 namespace InvoiceCoreAPI.Repositories;
 
-public class ItemmasterRepository : IItemmasterRepository
+public class ItemmasterRepositoryEFSp : IItemmasterRepository
 
 {
 
     private readonly AppDbContext _dbContext;
 
-    public ItemmasterRepository(AppDbContext dbContext)
+    public ItemmasterRepositoryEFSp(AppDbContext dbContext)
 
     {
 
@@ -34,7 +31,7 @@ public class ItemmasterRepository : IItemmasterRepository
 
             @"EXEC sp_Itemmaster_Insert
 
-            @CatCode,
+            @CategoryId,
 
             @ItemBarCode,
 
@@ -54,7 +51,7 @@ public class ItemmasterRepository : IItemmasterRepository
 
             @IsActive",
 
-            new SqlParameter("@CatCode", itemmaster.CatCode),
+            new SqlParameter("@CategoryId", itemmaster.CategoryId),
 
             new SqlParameter("@ItemBarCode", itemmaster.ItemBarCode),
 
@@ -90,7 +87,7 @@ public class ItemmasterRepository : IItemmasterRepository
 
             @Id,
 
-            @CatCode,
+            @CategoryId,
 
             @ItemBarCode,
 
@@ -112,7 +109,7 @@ public class ItemmasterRepository : IItemmasterRepository
 
             new SqlParameter("@Id", itemmaster.Id),
 
-            new SqlParameter("@CatCode", itemmaster.CatCode),
+            new SqlParameter("@CategoryId", itemmaster.CategoryId),
 
             new SqlParameter("@ItemBarCode", itemmaster.ItemBarCode),
 
@@ -165,7 +162,7 @@ public class ItemmasterRepository : IItemmasterRepository
         return await _dbContext.Itemmasters
 
             .FromSqlRaw("EXEC sp_Itemmaster_GetAll")
-
+            .AsNoTracking()
             .ToListAsync();
 
     }
@@ -183,62 +180,111 @@ public class ItemmasterRepository : IItemmasterRepository
         return affectedRows > 0;
 
     }
-    public async Task<PagedResultDto<Itemmaster>> GetAllPagedAsync(
-string? catCode,
-string? itemName,
-string? uom,
-int pageNumber,
-int pageSize)
+    public async Task<PagedResultDto<Itemmaster>> GetAllPagedAsync(ItemmasterFilterDto search)
+
     {
         using (var connection = _dbContext.Database.GetDbConnection())
+
         {
+
             await connection.OpenAsync();
+
             using var command = connection.CreateCommand();
+
             command.CommandText = "sp_Itemmaster_GetPaged";
+
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@CatCode", (object?)catCode ?? DBNull.Value));
-            command.Parameters.Add(new SqlParameter("@ItemName", (object?)itemName ?? DBNull.Value));
-            command.Parameters.Add(new SqlParameter("@Uom", (object?)uom ?? DBNull.Value));
-            command.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
-            command.Parameters.Add(new SqlParameter("@PageSize", pageSize));
+
+            command.Parameters.Add(new SqlParameter("@CategoryId", (object?)search.CategoryId ?? DBNull.Value));
+
+            command.Parameters.Add(new SqlParameter("@ItemBarCode", (object?)search.ItemBarCode ?? DBNull.Value));
+
+            command.Parameters.Add(new SqlParameter("@ItemCode", (object?)search.ItemCode ?? DBNull.Value));
+
+            command.Parameters.Add(new SqlParameter("@ItemName", (object?)search.ItemName ?? DBNull.Value));
+
+            command.Parameters.Add(new SqlParameter("@IsActive", (object?)search.IsActive ?? DBNull.Value));
+
+            command.Parameters.Add(new SqlParameter("@Uom", (object?)search.Uom ?? DBNull.Value));
+
+            command.Parameters.Add(new SqlParameter("@PageNumber", search.PageNumber));
+
+            command.Parameters.Add(new SqlParameter("@PageSize", search.PageSize));
 
             using var reader = await command.ExecuteReaderAsync();
 
             var items = new List<Itemmaster>();
 
             while (await reader.ReadAsync())
+
             {
+
                 items.Add(new Itemmaster
+
                 {
-                    Id = reader.GetInt32(0),
-                    CatCode = reader.GetString(1),
-                    ItemBarCode = reader.GetString(2),
-                    ItemCode = reader.GetString(3),
-                    ItemName = reader.GetString(4),
-                    Description = reader.GetString(5),
-                    Uom = reader.GetString(6),
-                    Rate = reader.GetDecimal(7),
-                    MinimumStock = reader.GetDecimal(8),
-                    MaximumStock = reader.GetDecimal(9),
-                    IsActive = reader.GetBoolean(10)
+
+                    Id = reader.GetInt32(reader.GetOrdinal("Id")),
+
+                    CategoryId = reader.GetInt32(reader.GetOrdinal("CategoryId")),
+
+                    ItemBarCode = reader.GetString(reader.GetOrdinal("ItemBarCode")),
+
+                    ItemCode = reader.GetString(reader.GetOrdinal("ItemCode")),
+
+                    ItemName = reader.GetString(reader.GetOrdinal("ItemName")),
+
+                    Description = reader.IsDBNull(
+
+                 reader.GetOrdinal("Description"))
+
+                 ? null
+
+                 : reader.GetString(reader.GetOrdinal("Description")),
+
+                    Uom = reader.GetString(reader.GetOrdinal("Uom")),
+
+                    Rate = reader.GetDecimal(reader.GetOrdinal("Rate")),
+
+                    MinimumStock = reader.GetDecimal(reader.GetOrdinal("MinimumStock")),
+
+                    MaximumStock = reader.GetDecimal(reader.GetOrdinal("MaximumStock")),
+
+                    IsActive = reader.GetBoolean(
+
+                 reader.GetOrdinal("IsActive"))
+
                 });
+
             }
+
+
 
             await reader.NextResultAsync();
 
-            int totalRecords = 0;
+            var totalRecords = 0;
+
             if (await reader.ReadAsync())
+
             {
-                totalRecords = reader.GetInt32(0);
+
+                totalRecords = reader.GetInt32(
+
+                    reader.GetOrdinal("TotalRecords"));
+
             }
 
             return new PagedResultDto<Itemmaster>
+
             {
+
                 Data = items,
+
                 TotalRecords = totalRecords
+
             };
 
         }
+
 
     }
 }

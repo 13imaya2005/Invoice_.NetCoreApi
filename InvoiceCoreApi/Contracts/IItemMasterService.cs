@@ -1,5 +1,6 @@
 ﻿using InvoiceCoreApi.DTO;
 using InvoiceCoreAPI.DTO;
+using ProductApi.DTOs;
 namespace InvoiceCoreAPI.Contracts
 
 {
@@ -19,11 +20,7 @@ namespace InvoiceCoreAPI.Contracts
         Task<bool> DeleteAsync(int id);
 
         Task<PagedResultDto<ItemMasterDto>> GetAllPagedAsync(
-string? catCode,
-string? itemName,
-string? uom,
-int pageNumber,
-int pageSize);
+ItemmasterFilterDto search);
     }
 
 }
