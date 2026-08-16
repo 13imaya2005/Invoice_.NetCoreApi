@@ -306,7 +306,7 @@ namespace InvoiceCoreAPI.Controllers
 
                         Success = false,
 
-                        Message = "user not found"
+                        Message = "users not found"
 
                     });
 
@@ -318,7 +318,7 @@ namespace InvoiceCoreAPI.Controllers
 
                     Success = true,
 
-                    Message = "user deleted successfully"
+                    Message = "users deleted successfully"
 
                 });
 
@@ -334,7 +334,7 @@ namespace InvoiceCoreAPI.Controllers
 
                     Success = false,
 
-                    Message = "Error deleting user",
+                    Message = "Error deleting users",
 
                     Error = new ApiError
 
