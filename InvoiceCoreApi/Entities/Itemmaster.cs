@@ -17,10 +17,7 @@ public class Itemmaster
     public int Id { get; set; }
 
     [Required]
-
-    [StringLength(5)]
-
-    public string CatCode { get; set; }
+    public int CategoryId { get; set; }
 
     [Required]
 

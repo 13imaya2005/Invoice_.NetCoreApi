@@ -16,9 +16,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
-builder.Services.AddScoped<IItemmasterRepository, ItemmasterRepository>();
+builder.Services.AddScoped<IItemmasterRepository, ItemmasterRepositoryEFSp>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepositories>();
-builder.Services.AddScoped<IItemMasterService, ItemMasterService>();
+builder.Services.AddScoped<IItemMasterService, ItemMasterServiceEFSp>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddAutoMapper(typeof(ItemMasterProfile));
 builder.Services.AddAutoMapper(typeof(CategoryProfile));

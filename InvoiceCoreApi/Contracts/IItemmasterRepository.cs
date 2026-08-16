@@ -1,5 +1,6 @@
 ﻿using InvoiceCoreApi.DTO;
 using InvoiceCoreAPI.Entities;
+using ProductApi.DTOs;
 
 namespace InvoiceCoreAPI.Contracts;
 
@@ -11,9 +12,5 @@ public interface IItemmasterRepository
     Task<bool> UpdateAsync(Itemmaster itemmaster);
     Task<bool> DeleteAsync(int id);
     Task<PagedResultDto<Itemmaster>> GetAllPagedAsync(
-    string? catCode,
-    string? itemName,
-    string? uom,
-    int pageNumber,
-    int pageSize);
+    ItemmasterFilterDto search);
 }

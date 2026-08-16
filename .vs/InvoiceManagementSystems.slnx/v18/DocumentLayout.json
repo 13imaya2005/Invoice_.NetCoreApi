@@ -1,20 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\test\\Api\\Invoice_.NetCoreApi\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{3B2900C4-1022-8D14-CE02-387A3E22DCFE}|InvoiceCoreApi\\InvoiceCoreApi.csproj|d:\\test\\api\\invoice_.netcoreapi\\invoicecoreapi\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3B2900C4-1022-8D14-CE02-387A3E22DCFE}|InvoiceCoreApi\\InvoiceCoreApi.csproj|solutionrelative:invoicecoreapi\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3B2900C4-1022-8D14-CE02-387A3E22DCFE}|InvoiceCoreApi\\InvoiceCoreApi.csproj|d:\\test\\api\\invoice_.netcoreapi\\invoicecoreapi\\controllers\\itemmastercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3B2900C4-1022-8D14-CE02-387A3E22DCFE}|InvoiceCoreApi\\InvoiceCoreApi.csproj|solutionrelative:invoicecoreapi\\controllers\\itemmastercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3B2900C4-1022-8D14-CE02-387A3E22DCFE}|InvoiceCoreApi\\InvoiceCoreApi.csproj|d:\\test\\api\\invoice_.netcoreapi\\invoicecoreapi\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3B2900C4-1022-8D14-CE02-387A3E22DCFE}|InvoiceCoreApi\\InvoiceCoreApi.csproj|solutionrelative:invoicecoreapi\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -22,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -33,41 +20,8 @@
               "Name": "ST:1483938272:0:{83107a3e-496a-485e-b455-16ddb978e55e}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CustomerController.cs",
-              "DocumentMoniker": "D:\\test\\Api\\Invoice_.NetCoreApi\\InvoiceCoreApi\\Controllers\\CustomerController.cs",
-              "RelativeDocumentMoniker": "InvoiceCoreApi\\Controllers\\CustomerController.cs",
-              "ToolTip": "D:\\test\\Api\\Invoice_.NetCoreApi\\InvoiceCoreApi\\Controllers\\CustomerController.cs",
-              "RelativeToolTip": "InvoiceCoreApi\\Controllers\\CustomerController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-14T17:22:52.464Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CategoryController.cs",
-              "DocumentMoniker": "D:\\test\\Api\\Invoice_.NetCoreApi\\InvoiceCoreApi\\Controllers\\CategoryController.cs",
-              "RelativeDocumentMoniker": "InvoiceCoreApi\\Controllers\\CategoryController.cs",
-              "ToolTip": "D:\\test\\Api\\Invoice_.NetCoreApi\\InvoiceCoreApi\\Controllers\\CategoryController.cs",
-              "RelativeToolTip": "InvoiceCoreApi\\Controllers\\CategoryController.cs",
-              "ViewState": "AgIAAIQAAAAAAAAAAAAkwFcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-14T15:48:31.534Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ItemMasterController.cs",
-              "DocumentMoniker": "D:\\test\\Api\\Invoice_.NetCoreApi\\InvoiceCoreApi\\Controllers\\ItemMasterController.cs",
-              "RelativeDocumentMoniker": "InvoiceCoreApi\\Controllers\\ItemMasterController.cs",
-              "ToolTip": "D:\\test\\Api\\Invoice_.NetCoreApi\\InvoiceCoreApi\\Controllers\\ItemMasterController.cs",
-              "RelativeToolTip": "InvoiceCoreApi\\Controllers\\ItemMasterController.cs",
-              "ViewState": "AgIAAMQAAAAAAAAAAEBVwNEAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-14T15:46:16.384Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             }
           ]
         }

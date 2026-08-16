@@ -275,27 +275,42 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "catCode",
+        "Name": "CategoryId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ItemBarCode",
         "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "itemName",
+        "Name": "ItemCode",
         "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "uom",
+        "Name": "ItemName",
         "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "pageNumber",
+        "Name": "Uom",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "IsActive",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageNumber",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "pageSize",
+        "Name": "PageSize",
         "Type": "System.Int32",
         "IsRequired": false
       }
