@@ -2,6 +2,7 @@
 using AutoMapper;
 using InvoiceCoreApi.DTO;
 using InvoiceCoreAPI.Contracts;
+using InvoiceCoreAPI.Controllers;
 using InvoiceCoreAPI.DTO;
 using InvoiceCoreAPI.Entities;
 using ProductApi.DTOs;
@@ -12,10 +13,13 @@ public class ItemMasterServiceEFSp : IItemMasterService
 {
     private readonly IItemmasterRepository _repository;
     private readonly IMapper _mapper;
-    public ItemMasterServiceEFSp(IItemmasterRepository repository, IMapper mapper)
+
+    private readonly ILogger<ItemMasterServiceEFSp> _logger;
+    public ItemMasterServiceEFSp(IItemmasterRepository repository, IMapper mapper, ILogger<ItemMasterServiceEFSp> logger)
     {
         _repository = repository;
         _mapper = mapper;
+        _logger = logger;
     }
     public async Task<int> AddAsync(ItemMasterDto dto)
     {
@@ -43,8 +47,11 @@ public class ItemMasterServiceEFSp : IItemMasterService
     }
     public async Task<PagedResultDto<ItemMasterDto>> GetAllPagedAsync(
         ItemmasterFilterDto search)
+
       
     {
+        _logger.LogInformation("ItemsMaster Service GetAllPaged Async Method Called");
+        _logger.LogInformation("");
         var result = await _repository.GetAllPagedAsync(search);
 
         return new PagedResultDto<ItemMasterDto>
