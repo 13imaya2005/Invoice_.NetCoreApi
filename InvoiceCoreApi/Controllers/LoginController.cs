@@ -1,112 +1,244 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-using Microsoft.AspNetCore.Mvc;
-
-using Microsoft.IdentityModel.Tokens;
-
+﻿using InvoiceCoreApi.DTO;
+using InvoiceCoreAPI.Contracts;
 using InvoiceCoreAPI.DTO;
-
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-
 using System.Security.Claims;
-
 using System.Text;
 
 
 namespace InvoiceCoreAPI.Controllers;
 
-[Route("api/[controller]")]
 
 [ApiController]
-
+[Route("api/v{version:apiVersion}/[controller]")]
+[ApiVersion("1.0")]
+[Authorize]
 public class LoginController : ControllerBase
-
 {
-
+    private readonly IUsersService _usersService;
+    private readonly IConfiguration _configuration;
     private readonly ILogger<LoginController> _logger;
 
-    private readonly IConfiguration _configuration;
-
-    public LoginController(ILogger<LoginController> logger, IConfiguration configuration)
-
+    public LoginController(
+        IUsersService usersService,
+        IConfiguration configuration,
+        ILogger<LoginController> logger)
     {
-
-        _logger = logger;
-
+        _usersService = usersService;
         _configuration = configuration;
-
+        _logger = logger;
     }
 
     [AllowAnonymous]
-
-    [HttpPost("Login")]
-
-    public async Task<IActionResult> Login([FromBody] LoginDto dto)
-
+    [HttpPost]
+    public async Task<IActionResult> Login(
+        [FromBody] LoginRequestDto request)
     {
-
-        if (!ModelState.IsValid)
-
-            return BadRequest();
-
-        var configUsername = _configuration["UserCredentials:Username"];
-
-        var configPassword = _configuration["UserCredentials:Password"];
-
-        if (dto.UserName != configUsername || dto.Password != configPassword)
-
-            return Unauthorized();
-
-        var jwtKey = _configuration["Jwt:Key"];
-
-        var jwtIssuer = _configuration["Jwt:Issuer"];
-
-        var expiryMinutes = Convert.ToInt32(_configuration["Jwt:ExpiryMinutes"]);
-
-        var claims = new[]
-
+        try
         {
+            if (string.IsNullOrWhiteSpace(request.UserName) ||
+                string.IsNullOrWhiteSpace(request.Password))
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = "Username and password are required."
+                });
+            }
 
-            new Claim(ClaimTypes.Name, dto.UserName),
+            var user =
+                await _usersService.ValidateUserAsync(
+                    request.UserName,
+                    request.Password);
 
-            new Claim(ClaimTypes.Role, "Admin"),
+            if (user == null)
+            {
+                return Unauthorized(new
+                {
+                    Success = false,
+                    Message = "Invalid username or password."
+                });
+            }
 
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            var jwtKey =
+                _configuration["Jwt:Key"];
 
-        };
+            var jwtIssuer =
+                _configuration["Jwt:Issuer"];
 
-        if (string.IsNullOrEmpty(jwtKey)) throw new Exception("JWT key is missing in the configuration");
+            var jwtExpiryMinutes =
+                _configuration.GetValue<int>(
+                    "Jwt:ExpiryMinutes");
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+            if (string.IsNullOrWhiteSpace(jwtKey))
+            {
+                throw new InvalidOperationException(
+                    "JWT Key is not configured.");
+            }
 
-        var cre = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            if (string.IsNullOrWhiteSpace(jwtIssuer))
+            {
+                throw new InvalidOperationException(
+                    "JWT Issuer is not configured.");
+            }
 
-        var expiry = DateTime.UtcNow.AddMinutes(expiryMinutes);
+            var expiration =
+                DateTime.UtcNow.AddMinutes(
+                    jwtExpiryMinutes);
 
-        var token = new JwtSecurityToken(
+            var claims = new List<Claim>
+            {
+                new Claim(
+                    ClaimTypes.NameIdentifier,
+                    user.Id.ToString()),
 
-            issuer: jwtIssuer,
+                new Claim(
+                    ClaimTypes.Name,
+                    user.UserName),
 
-            audience: null,
+                new Claim(
+                    ClaimTypes.Email,
+                    user.Email),
 
-            claims: claims,
+                new Claim(
+                    ClaimTypes.GivenName,
+                    user.FirstName),
 
-            expires: expiry,
+                new Claim(
+                    ClaimTypes.Surname,
+                    user.LastName),
 
-            signingCredentials: cre
+                new Claim(
+                    "displayName",
+                    user.DisplayName)
+            };
 
-            );
+            var key =
+                new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(jwtKey));
 
-        return Ok(new
+            var credentials =
+                new SigningCredentials(
+                    key,
+                    SecurityAlgorithms.HmacSha256);
 
+            var tokenDescriptor =
+                new SecurityTokenDescriptor
+                {
+                    Subject =
+                        new ClaimsIdentity(claims),
+
+                    Expires = expiration,
+
+                    Issuer = jwtIssuer,
+
+                    Audience = jwtIssuer,
+
+                    SigningCredentials = credentials
+                };
+
+            var tokenHandler =
+                new JwtSecurityTokenHandler();
+
+            var token =
+                tokenHandler.CreateToken(
+                    tokenDescriptor);
+
+            var tokenString =
+                tokenHandler.WriteToken(token);
+
+            var response =
+                new LoginResponseDto
+                {
+                    Token = tokenString,
+                    Expiration = expiration,
+                    User = user
+                };
+
+            return Ok(new
+            {
+                Success = true,
+                Message = "Login successful.",
+                Data = response
+            });
+        }
+        catch (Exception ex)
         {
+            _logger.LogError(
+                ex,
+                "Error occurred during login.");
 
-            token = new JwtSecurityTokenHandler().WriteToken(token),
-
-            expiration = expiry
-
-        });
-
+            return StatusCode(
+                StatusCodes.Status500InternalServerError,
+                new
+                {
+                    Success = false,
+                    Message = "An error occurred during login."
+                });
+        }
     }
-
 }
+
+//using Microsoft.AspNetCore.Authorization;
+//using Microsoft.AspNetCore.Mvc;
+//using Microsoft.IdentityModel.Tokens;
+//using ProductApi.DTOs;
+//using System.IdentityModel.Tokens.Jwt;
+//using System.Security.Claims;
+//using System.Text;
+
+//namespace ProductApi.Controllers
+//{
+//    [Route("api/v{version:apiVersion}/[controller]")]
+//    [ApiController]
+//    [ApiVersion("1.0")]
+//    public class LoginController : ControllerBase
+//    {
+//        private readonly ILogger<ProductController> _logger;
+//        private readonly IConfiguration _configuration;
+
+//        public LoginController(ILogger<ProductController> logger, IConfiguration configuration)
+//        {
+//            _logger = logger;
+//            _configuration = configuration;
+//        }
+
+//        [AllowAnonymous]
+//        [HttpPost("Login")]
+//        public async Task<IActionResult> Login([FromBody] LoginDto dto)
+//        {
+
+//            if (!ModelState.IsValid)
+//                return BadRequest();
+//            HttpContext.Session.SetString("MyTest", "My set value test");
+
+//            var configUsername = _configuration["UserCredentials:Username"];
+//            var configPassword = _configuration["UserCredentials:Password"];
+
+//            if (dto.UserName != configUsername || dto.Password != configPassword)
+//                return Unauthorized();
+//            var jwtKey = _configuration["Jwt:Key"]; // "v2UJQxTrwUCqqJkehkxvSUZKQCX6gNmRWq7q1bWa3Jw="; // Use config in real app
+//            var jwtIssuer = _configuration["Jwt:Issuer"]; // "yourapiissuer";
+
+//            var claims = new[]
+//            {
+//                new Claim(ClaimTypes.Name, dto.UserName)
+//            };
+//            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+//            var cre = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+//            var token = new JwtSecurityToken(
+//                issuer: jwtIssuer,
+//                audience: null,
+//                claims: claims,
+//                expires: DateTime.Now.AddHours(2),
+//                signingCredentials: cre
+//                );
+//            return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), expiration = token.ValidTo });
+
+//        }
+//    }
+//}

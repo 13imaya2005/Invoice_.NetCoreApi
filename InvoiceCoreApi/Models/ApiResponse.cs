@@ -1,6 +1,4 @@
-﻿
-
-namespace InvoiceCoreAPI.Models;
+﻿namespace InvoiceCoreAPI.Models;
 
 public class ApiResponse<T>
 {

@@ -32,7 +32,7 @@ public class Users
 
     [StringLength(500)]
 
-    public string Password { get; set; }
+    public string PasswordHash{ get; set; }
 
     [Required]
 
@@ -89,6 +89,7 @@ public class Users
     public bool IsActive { get; set; }
 
     public bool IsDeleted { get; set; }
+    public DateTime? LastLoginDate {  get; set; }
 
     [StringLength(100)]
 

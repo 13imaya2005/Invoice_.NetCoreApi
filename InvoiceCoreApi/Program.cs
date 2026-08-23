@@ -5,9 +5,12 @@ using InvoiceCoreAPI.Mapper;
 using InvoiceCoreAPI.Repositories;
 using InvoiceCoreAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Data;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,15 +18,23 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+builder.Services.AddScoped<IDbConnection>(sp =>
+{
+    var configuration = sp.GetRequiredService<IConfiguration>();
 
+    var connectionString =
+        configuration.GetConnectionString("DefaultConnection");
+
+    return new SqlConnection(connectionString);
+});
 builder.Services.AddScoped<IItemmasterRepository, ItemmasterRepositoryEFSp>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepositories>();
 builder.Services.AddScoped<IItemMasterService, ItemMasterServiceEFSp>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddAutoMapper(typeof(ItemMasterProfile));
 builder.Services.AddAutoMapper(typeof(CategoryProfile));
-builder.Services.AddScoped<IUsersRepository, UsersRepositories>();
-builder.Services.AddScoped<IUsersService, UsersService>();
+builder.Services.AddScoped<IUsersRepository, UsersRepositorySpDap>();
+builder.Services.AddScoped<IUsersService, UsersServiceSpDap>();
 builder.Services.AddAutoMapper(typeof(UsersProfile));
 builder.Services.AddScoped<ICustomerRepoitory, CustomerRepositories>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
@@ -32,7 +43,18 @@ builder.Services.AddScoped<IVendorRepository, VendorRepositories>();
 builder.Services.AddScoped<IVendorService,VendorService>();
 builder.Services.AddAutoMapper(typeof(VendorProfile));
 
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+});
 
+builder.Services.AddVersionedApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
 
 
 // Add services to the container.
