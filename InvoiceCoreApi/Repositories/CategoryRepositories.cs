@@ -1,4 +1,5 @@
 ﻿using InvoiceCoreApi.DTO;
+using InvoiceCoreApi.Models.AI;
 using InvoiceCoreAPI.Contracts;
 
 using InvoiceCoreAPI.Data;
@@ -137,6 +138,66 @@ public class CategoryRepositories : ICategoryRepository
 
     }
 
+    public async Task<Category?> GetByNameAsync(string name)
+    {
+        var categories = await _dbContext.Category
+            .FromSqlRaw(
+                "EXEC sp_Category_GetByName @Name",
+                new SqlParameter("@Name", name))
+            .AsNoTracking()
+            .ToListAsync();
+
+        return categories.FirstOrDefault();
+    }
+    public async Task<CategoryItemCountResult?> GetCategoryItemCountAsync(
+    string categoryName,
+    bool categoryActiveOnly,
+    bool? itemActiveOnly)
+    {
+        using var connection = _dbContext.Database.GetDbConnection();
+
+        if (connection.State != ConnectionState.Open)
+        {
+            await connection.OpenAsync();
+        }
+
+        using var command = connection.CreateCommand();
+
+        command.CommandText = "dbo.sp_AI_CategoryItemCount";
+        command.CommandType = CommandType.StoredProcedure;
+
+        command.Parameters.Add(
+            new SqlParameter("@CategoryName", categoryName));
+
+        command.Parameters.Add(
+            new SqlParameter("@CategoryActiveOnly", categoryActiveOnly));
+
+        command.Parameters.Add(
+            new SqlParameter("@ItemActiveOnly",
+                itemActiveOnly.HasValue
+                    ? itemActiveOnly.Value
+                    : DBNull.Value));
+
+        using var reader = await command.ExecuteReaderAsync();
+
+        if (!await reader.ReadAsync())
+        {
+            return null;
+        }
+
+        return new CategoryItemCountResult
+        {
+            CategoryName = reader.GetString(
+                reader.GetOrdinal("CategoryName")),
+
+            CategoryIsActive = reader.GetBoolean(
+                reader.GetOrdinal("CategoryIsActive")),
+
+            ItemCount = reader.GetInt32(
+                reader.GetOrdinal("ItemCount"))
+        };
+    }
+
     public async Task<PagedResultDto<Category>> GetAllPagedAsync(
 
 string? Code,
@@ -216,6 +277,7 @@ int pageSize)
                 TotalRecords = totalRecords
 
             };
+
 
         }
 

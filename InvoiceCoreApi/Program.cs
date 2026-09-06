@@ -1,7 +1,10 @@
 using InvoiceAPI.Services;
+using InvoiceCoreApi.Contracts;
+using InvoiceCoreApi.Services;
 using InvoiceCoreAPI.Contracts;
 using InvoiceCoreAPI.Data;
 using InvoiceCoreAPI.Mapper;
+using InvoiceCoreAPI.Middleware;
 using InvoiceCoreAPI.Repositories;
 using InvoiceCoreAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -10,10 +13,9 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Data;
 using Serilog;
+using System.Data;
 using System.Text;
-using InvoiceCoreAPI.Middleware;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -52,6 +54,8 @@ builder.Services.AddAutoMapper(typeof(CustomerProfile));
 builder.Services.AddScoped<IVendorRepository, VendorRepositories>();
 builder.Services.AddScoped<IVendorService,VendorService>();
 builder.Services.AddAutoMapper(typeof(VendorProfile));
+builder.Services.AddScoped<IMockAIProvider,MockAIProvider>();
+builder.Services.AddScoped<IAIService, AIService>();
 
 builder.Services.AddApiVersioning(options =>
 {
