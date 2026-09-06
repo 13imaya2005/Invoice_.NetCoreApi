@@ -1,12 +1,12 @@
 services:
   invoice-api:
-    container_name: invoicecoreapi-container
+    container_name: invoicecore-api-container
  
     build:
       context: .
       dockerfile: Dockerfile
  
-    image: invoice-api:latest
+    image: invoicecoreapi:latest
  
     ports:
       - "5002:8080"
@@ -14,4 +14,3 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: ${ConnectionStrings__DefaultConnection}
- 
