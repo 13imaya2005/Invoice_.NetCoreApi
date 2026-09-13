@@ -1386,3 +1386,41 @@ EXEC sp_Category_GetAll
 2026-09-06 21:57:15.710 +05:30 [INF] Executed action InvoiceCoreAPI.Controllers.AIController.Ask (InvoiceCoreApi) in 63.7657ms
 2026-09-06 21:57:15.711 +05:30 [INF] Executed endpoint 'InvoiceCoreAPI.Controllers.AIController.Ask (InvoiceCoreApi)'
 2026-09-06 21:57:15.713 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5027/api/ai/ask - 200 null application/json; charset=utf-8 92.2171ms
+2026-09-06 22:02:10.762 +05:30 [INF] User profile is available. Using 'C:\Users\acer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-09-06 22:02:11.941 +05:30 [INF] Now listening on: http://localhost:5027
+2026-09-06 22:02:12.132 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-09-06 22:02:12.134 +05:30 [INF] Hosting environment: Development
+2026-09-06 22:02:12.136 +05:30 [INF] Content root path: D:\test\Api\Invoice_.NetCoreApi\InvoiceCoreApi
+2026-09-06 22:02:12.885 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5027/swagger/index.html - null null
+2026-09-06 22:02:13.399 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5027/swagger/index.html - 200 null text/html;charset=utf-8 555.1783ms
+2026-09-06 22:02:13.418 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5027/_framework/aspnetcore-browser-refresh.js - null null
+2026-09-06 22:02:13.428 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5027/_vs/browserLink - null null
+2026-09-06 22:02:13.438 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5027/_framework/aspnetcore-browser-refresh.js - 200 14932 application/javascript; charset=utf-8 21.9154ms
+2026-09-06 22:02:13.536 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5027/_vs/browserLink - 200 null text/javascript; charset=UTF-8 107.9632ms
+2026-09-06 22:02:13.632 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5027/swagger/v1/swagger.json - null null
+2026-09-06 22:02:13.817 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5027/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 183.9295ms
+2026-09-06 22:02:54.671 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5027/api/v1/Login - application/json 53
+2026-09-06 22:02:54.715 +05:30 [INF] CORS policy execution failed.
+2026-09-06 22:02:54.717 +05:30 [INF] Request origin http://localhost:5027 does not have permission to access the resource.
+2026-09-06 22:02:54.834 +05:30 [INF] Executing endpoint 'InvoiceCoreAPI.Controllers.LoginController.Login (InvoiceCoreApi)'
+2026-09-06 22:02:54.910 +05:30 [INF] Route matched with {action = "Login", controller = "Login"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(InvoiceCoreApi.DTO.LoginRequestDto) on controller InvoiceCoreAPI.Controllers.LoginController (InvoiceCoreApi).
+2026-09-06 22:02:56.112 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[InvoiceCoreApi.DTO.LoginResponseDto, InvoiceCoreApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-06 22:02:56.159 +05:30 [INF] Executed action InvoiceCoreAPI.Controllers.LoginController.Login (InvoiceCoreApi) in 1237.7671ms
+2026-09-06 22:02:56.163 +05:30 [INF] Executed endpoint 'InvoiceCoreAPI.Controllers.LoginController.Login (InvoiceCoreApi)'
+2026-09-06 22:02:56.167 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5027/api/v1/Login - 200 null application/json; charset=utf-8 1496.279ms
+2026-09-06 22:03:47.710 +05:30 [INF] Request starting HTTP/1.1 POST http://localhost:5027/api/ai/ask - application/json 55
+2026-09-06 22:03:47.718 +05:30 [INF] CORS policy execution failed.
+2026-09-06 22:03:47.719 +05:30 [INF] Request origin http://localhost:5027 does not have permission to access the resource.
+2026-09-06 22:03:47.811 +05:30 [INF] Executing endpoint 'InvoiceCoreAPI.Controllers.AIController.Ask (InvoiceCoreApi)'
+2026-09-06 22:03:47.820 +05:30 [INF] Route matched with {action = "Ask", controller = "AI"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Ask(InvoiceCoreApi.Models.AI.AIAskRequest) on controller InvoiceCoreAPI.Controllers.AIController (InvoiceCoreApi).
+2026-09-06 22:03:48.106 +05:30 [INF] Processing AI question: How many active items are in Rice? 
+2026-09-06 22:03:48.109 +05:30 [INF] Mock LLM processing question: How many active items are in Rice? 
+2026-09-06 22:03:48.119 +05:30 [INF] Mock LLM returned intent: {"intent":"CategoryItemCount","categoryName":"Rice","categoryActiveOnly":true,"itemActiveOnly":true}
+2026-09-06 22:03:48.121 +05:30 [INF] Intent received from Mock LLM: {"intent":"CategoryItemCount","categoryName":"Rice","categoryActiveOnly":true,"itemActiveOnly":true}
+2026-09-06 22:03:49.164 +05:30 [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+EXEC sp_Category_GetAll
+2026-09-06 22:03:49.264 +05:30 [INF] Database result - Category: Rice, ItemActiveOnly: true, Count: 0
+2026-09-06 22:03:49.267 +05:30 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`3[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[InvoiceCoreApi.Models.AI.AIAskResponse, InvoiceCoreApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-09-06 22:03:49.271 +05:30 [INF] Executed action InvoiceCoreAPI.Controllers.AIController.Ask (InvoiceCoreApi) in 1448.4171ms
+2026-09-06 22:03:49.273 +05:30 [INF] Executed endpoint 'InvoiceCoreAPI.Controllers.AIController.Ask (InvoiceCoreApi)'
+2026-09-06 22:03:49.282 +05:30 [INF] Request finished HTTP/1.1 POST http://localhost:5027/api/ai/ask - 200 null application/json; charset=utf-8 1572.0872ms

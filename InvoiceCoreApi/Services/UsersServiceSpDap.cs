@@ -66,7 +66,7 @@ namespace InvoiceCoreAPI.Services
         }
 
         public async Task<ApiResponse<UserDto>> AddAsync(
-            UserCreateDto dto)
+            UsersCreateDto dto)
         {
             var existingUser =
                 await _repository.GetByUserNameAsync(dto.UserName);
@@ -135,7 +135,7 @@ namespace InvoiceCoreAPI.Services
 
         public async Task<ApiResponse<UserDto>> UpdateAsync(
             int id,
-            UserUpdateDto dto)
+            UsersUpdateDto dto)
         {
             var existing =
                 await _repository.GetByIdAsync(id);

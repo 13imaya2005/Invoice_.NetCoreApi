@@ -1,4 +1,10 @@
-﻿namespace InvoiceCoreAPI.DTO
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Invoice.DTOs
 {
     public class VendorDto
     {
@@ -23,3 +29,4 @@
         public DateTime? UpdatedDate { get; set; }
     }
 }
+
