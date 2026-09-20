@@ -99,7 +99,7 @@ namespace Invoice.DAL.Repositories
 
         public async Task<VendorEntity?> GetByIdAsync(int id)
         {
-            var items = await _dbContext.Vendor
+            var items = await _dbContext.Vendors
                 .FromSqlRaw("EXEC sp_Vendor_GetById @Id",
                     new SqlParameter("@Id", id))
                 .AsNoTracking()
@@ -110,7 +110,7 @@ namespace Invoice.DAL.Repositories
 
         public async Task<IEnumerable<VendorEntity>> GetAllAsync()
         {
-            return await _dbContext.Vendor
+            return await _dbContext.Vendors
                 .FromSqlRaw("EXEC sp_Vendor_GetAll")
                 .ToListAsync();
         }

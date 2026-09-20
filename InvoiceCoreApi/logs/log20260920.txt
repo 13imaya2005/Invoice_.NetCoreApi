@@ -1,0 +1,13 @@
+2026-09-20 17:50:43.424 +05:30 [INF] User profile is available. Using 'C:\Users\acer\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-09-20 17:50:43.919 +05:30 [INF] Now listening on: http://localhost:5027
+2026-09-20 17:50:44.175 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-09-20 17:50:44.178 +05:30 [INF] Hosting environment: Development
+2026-09-20 17:50:44.180 +05:30 [INF] Content root path: D:\test\Api\Invoice_.NetCoreApi\InvoiceCoreApi
+2026-09-20 17:50:46.530 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5027/swagger/index.html - null null
+2026-09-20 17:50:46.967 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5027/swagger/index.html - 200 null text/html;charset=utf-8 458.4855ms
+2026-09-20 17:50:47.020 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5027/_vs/browserLink - null null
+2026-09-20 17:50:47.035 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5027/_framework/aspnetcore-browser-refresh.js - null null
+2026-09-20 17:50:47.047 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5027/_framework/aspnetcore-browser-refresh.js - 200 14933 application/javascript; charset=utf-8 12.2734ms
+2026-09-20 17:50:47.208 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5027/_vs/browserLink - 200 null text/javascript; charset=UTF-8 191.5714ms
+2026-09-20 17:50:47.303 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5027/swagger/v1/swagger.json - null null
+2026-09-20 17:50:47.372 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5027/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 69.0378ms

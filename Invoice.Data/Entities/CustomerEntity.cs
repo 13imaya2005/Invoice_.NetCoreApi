@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Invoice.Data.Entities
 {
     [Table("Customer")]
-    public class Customer
+    public class CustomerEntity
     {
             [Key]
             public int Id { get; set; }

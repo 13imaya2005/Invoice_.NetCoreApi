@@ -16,10 +16,10 @@ namespace Invoice.Data.Db
             }
 
             public DbSet<ItemmasterEntity> Itemmasters { get; set; }
-            public DbSet<CategoryEntity> Category { get; set; }
+            public DbSet<CategoryEntity> Categories { get; set; }
             public DbSet<UsersEntity> Users { get; set; }
-            public DbSet<Customer> Customer { get; set; }
-            public DbSet<VendorEntity> Vendor { get; set; }
+            public DbSet<CustomerEntity> Customers { get; set; }
+            public DbSet<VendorEntity> Vendors { get; set; }
 
             protected override void OnModelCreating(ModelBuilder modelBuilder)
             {

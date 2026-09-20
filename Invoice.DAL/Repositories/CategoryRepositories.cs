@@ -30,33 +30,73 @@ namespace Invoice.DAL.Repositories
 
         }
 
-        public async Task<int> AddAsync(CategoryEntity entity)
+        public async Task<int> AddAsync(CategoryEntity category)
 
         {
 
-            var result = await _dbContext.Database.ExecuteSqlRawAsync(
+            var connection = _dbContext.Database.GetDbConnection();
 
-                @"EXEC sp_Category_Insert
 
-            @Code,
+            if (connection.State != ConnectionState.Open)
 
-            @Name,
+            {
 
-            @Description,
+                await connection.OpenAsync();
 
-            @IsActive",
+            }
 
-                new SqlParameter("@Code", entity.Code),
 
-                new SqlParameter("@name", entity.Name),
+            using var command = connection.CreateCommand();
 
-                new SqlParameter("@Description", (object?)entity.Description ?? DBNull.Value),
 
-                new SqlParameter("@IsActive", (object?)entity.IsActive ?? DBNull.Value)
+            command.CommandText = "sp_Category_Insert";
 
-                );
+            command.CommandType = CommandType.StoredProcedure;
 
-            return result;
+
+            command.Parameters.Add(
+
+                new SqlParameter("@Code", category.Code));
+
+
+            command.Parameters.Add(
+
+                new SqlParameter("@Name", category.Name));
+
+
+            command.Parameters.Add(
+
+                new SqlParameter(
+
+                    "@Description",
+
+                    (object?)category.Description ?? DBNull.Value));
+
+
+            command.Parameters.Add(
+
+                new SqlParameter(
+
+                    "@IsActive",
+
+                    (object?)category.IsActive ?? DBNull.Value));
+
+
+            var result = await command.ExecuteScalarAsync();
+
+
+            if (result == null || result == DBNull.Value)
+
+            {
+
+                throw new InvalidOperationException(
+
+                    "Category insert did not return the generated Id.");
+
+            }
+
+
+            return Convert.ToInt32(result);
 
         }
 
@@ -98,7 +138,7 @@ namespace Invoice.DAL.Repositories
 
         {
 
-            var items = await _dbContext.Category
+            var items = await _dbContext.Categories
 
                 .FromSqlRaw("EXEC sp_Category_GetById @Id",
 
@@ -116,7 +156,7 @@ namespace Invoice.DAL.Repositories
 
         {
 
-            return await _dbContext.Category
+            return await _dbContext.Categories
 
                 .FromSqlRaw("EXEC sp_Category_GetAll")
 
@@ -140,7 +180,7 @@ namespace Invoice.DAL.Repositories
 
         public async Task<CategoryEntity?> GetByNameAsync(string name)
         {
-            var categories = await _dbContext.Category
+            var categories = await _dbContext.Categories
                 .FromSqlRaw(
                     "EXEC sp_Category_GetByName @Name",
                     new SqlParameter("@Name", name))
