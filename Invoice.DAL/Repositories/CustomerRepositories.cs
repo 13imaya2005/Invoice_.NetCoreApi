@@ -79,6 +79,7 @@ namespace Invoice.DAL.Repositories
         @Country,
         @ZipCode,
         @GstNo,
+        @IsDeleted,
         @IsActive",
 
                 new SqlParameter("@Id", entity.Id),
@@ -94,6 +95,7 @@ namespace Invoice.DAL.Repositories
                 new SqlParameter("@Country", (object?)entity.Country ?? DBNull.Value),
                 new SqlParameter("@ZipCode", (object?)entity.ZipCode ?? DBNull.Value),
                 new SqlParameter("@GstNo", (object?)entity.GstNo ?? DBNull.Value),
+                new SqlParameter("IsDeleted",entity.IsDeleted),
                 new SqlParameter("@IsActive", entity.IsActive)
             );
 
@@ -149,14 +151,18 @@ namespace Invoice.DAL.Repositories
     string? CustomeCode,
 
     string? CustomeName,
+    string? MobileNo,
 
-    bool? IsActive,
+    string? City,
+   
 
     int pageNumber,
 
     int pageSize)
 
+
         {
+
 
             using (var connection = _dbContext.Database.GetDbConnection())
 
@@ -174,7 +180,9 @@ namespace Invoice.DAL.Repositories
 
                 command.Parameters.Add(new SqlParameter("@CustomerName", (object?)CustomeName ?? DBNull.Value));
 
-                command.Parameters.Add(new SqlParameter("@IsActive", (object?)IsActive ?? DBNull.Value));
+               command.Parameters.Add(new SqlParameter("@MobileNo",(Object?)MobileNo?? DBNull.Value));
+
+               command.Parameters.Add(new SqlParameter("@City",(Object?)City ?? DBNull.Value));
 
                 command.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
 
@@ -235,11 +243,35 @@ namespace Invoice.DAL.Repositories
 
                 };
 
+
             }
 
         }
 
+
+        public async Task<int> GetCustomerCountAsync(bool? activeOnly)
+
+        {
+
+            var query = _dbContext.Customers
+
+                .Where(x => x.IsDeleted != true);
+
+            if (activeOnly.HasValue)
+
+            {
+
+                query = query.Where(x =>
+
+                    x.IsActive == activeOnly.Value);
+
+            }
+
+            return await query.CountAsync();
+
+        }
     }
-
-
 }
+
+
+    

@@ -18,14 +18,17 @@ public interface ICustomerRepository
     Task<bool> DeleteAsync(int id);
     Task<PagedResultDto<CustomerEntity>> GetAllPagedAsync(
 
+
     string? CustomerCode,
 
     string? CustomerName,
-
-    bool? IsActive,
+    string? MobileNo,
+    string? City,
+ 
 
     int pageNumber,
 
     int pageSize);
+    Task<int> GetCustomerCountAsync(bool? activeOnly);
 
 }
