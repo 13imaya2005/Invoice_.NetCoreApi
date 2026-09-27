@@ -8,8 +8,7 @@ namespace Invoice.DAL.Test;
 
 public class UserRepositoriesSpDapTests
 {
-    private const string ConnectionString =
-     "Server=Z14-55M\\SQLEXPRESS,1435;Database=Invoice_Test;User Id = sa; Password=123456;Encrypt=False;TrustServerCertificate=True";
+    private static string ConnectionString = TestDatabase.ConnectionString;
 
     private SqlConnection CreateConnection()
     {

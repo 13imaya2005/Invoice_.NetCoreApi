@@ -16,19 +16,8 @@ public class ItemmasterRepositoriesTests
 
 {
 
-    private const string ConnectionString =
+    private static string ConnectionString = TestDatabase.ConnectionString;
 
-        "Server=Z14-55M\\SQLEXPRESS,1435;" +
-
-        "Database=Invoice_Test;" +
-
-        "User Id=sa;" +
-
-        "Password=123456;" +
-
-        "Encrypt=False;" +
-
-        "TrustServerCertificate=True";
 
     private static AppDbContext CreateDbContext()
 
