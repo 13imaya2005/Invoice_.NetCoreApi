@@ -266,7 +266,7 @@ namespace Invoice.BAL.Services
                 return null;
             }
 
-            //await _repository.UpdateLastLoginAsync(user.Id);
+            await _repository.UpdateLastLoginAsync(user.Id);
 
             return MapToDto(user);
         }

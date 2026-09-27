@@ -20,11 +20,8 @@ public interface IVendorService
     Task<PagedResultDto<VendorDto>> GetAllPagedAsync(
         string? VendorCode,
         string? VendorName,
-        string? ContactPerson,
         string? MobileNo,
-        string? Email,
         string? City,
-        bool? IsActive,
         int pageNumber,
         int pageSize);
 }

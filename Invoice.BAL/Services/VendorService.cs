@@ -49,22 +49,16 @@ namespace Invoice.BAL.Services
         public async Task<PagedResultDto<VendorDto>> GetAllPagedAsync(
             string? VendorCode,
             string? VendorName,
-            string? ContactPerson,
             string? MobileNo,
-            string? Email,
             string? City,
-            bool? IsActive,
             int pageNumber,
             int pageSize)
         {
             var result = await _repository.GetAllPagedAsync(
                 VendorCode,
                 VendorName,
-                ContactPerson,
                 MobileNo,
-                Email,
                 City,
-                IsActive,
                 pageNumber,
                 pageSize);
 

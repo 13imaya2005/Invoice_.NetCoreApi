@@ -42,12 +42,12 @@ public class CustomerService : ICustomerService
     public async Task<PagedResultDto<CustomerDto>> GetAllPagedAsync(
         string? CustomerCode,
         string? CustomerName,
-        bool? IsActive,
+        string? MobileNo,
+        string? City,
         int PageNumber,
         int PageSize)
     {
-        var result = await _repository.GetAllPagedAsync(CustomerCode, CustomerName,IsActive,
-            PageNumber, PageSize);
+        var result = await _repository.GetAllPagedAsync(CustomerCode, CustomerName, MobileNo, City, PageNumber, PageSize);
         return new PagedResultDto<CustomerDto>
         {
             Data = _mapper.Map<IEnumerable<CustomerDto>>(result.Data),

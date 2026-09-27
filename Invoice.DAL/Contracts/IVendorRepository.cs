@@ -24,12 +24,11 @@ namespace Invoice.DAL.Contracts
         Task<PagedResultDto<VendorEntity>> GetAllPagedAsync(
             string? VendorCode,
             string? VendorName,
-            string? ContactPerson,
             string? MobileNo,
-            string? Email,
             string? City,
-            bool? IsActive,
             int pageNumber,
             int pageSize);
+
+        Task<int> GetVendorCountAsync(bool? activeOnly);
     }
 }

@@ -12,12 +12,12 @@ namespace Invoice.BAL.Services
         private readonly IItemmasterRepository _repository;
         private readonly IMapper _mapper;
 
-        private readonly ILogger<ItemMasterServiceEFSp> _logger;
-        public ItemMasterServiceEFSp(IItemmasterRepository repository, IMapper mapper, ILogger<ItemMasterServiceEFSp> logger)
+       // private readonly ILogger<ItemMasterServiceEFSp> _logger;
+        public ItemMasterServiceEFSp(IItemmasterRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _logger = logger;
+            //_logger = logger;, ILogger<ItemMasterServiceEFSp> logger
         }
         public async Task<int> AddAsync(ItemMasterDto dto)
         {
@@ -48,8 +48,8 @@ namespace Invoice.BAL.Services
 
 
         {
-            _logger.LogInformation("ItemsMaster Service GetAllPaged Async Method Called");
-            _logger.LogInformation("");
+            //_logger.LogInformation("ItemsMaster Service GetAllPaged Async Method Called");
+            //_logger.LogInformation("");
             var result = await _repository.GetAllPagedAsync(search);
 
             return new PagedResultDto<ItemMasterDto>

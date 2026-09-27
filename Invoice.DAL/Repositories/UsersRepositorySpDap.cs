@@ -23,14 +23,14 @@ namespace Invoice.DAL.Repositories
         public async Task<IEnumerable<UsersEntity>> GetAllAsync()
         {
             return await _connection.QueryAsync<UsersEntity>(
-                "dbo.sp_Users_GetAll",
+                "dbo.sp_User_GetAll",
                 commandType: CommandType.StoredProcedure);
         }
 
         public async Task<UsersEntity?> GetByIdAsync(int id)
         {
             return await _connection.QueryFirstOrDefaultAsync<UsersEntity>(
-                "dbo.sp_Users_GetById",
+                "dbo.sp_User_GetById",
                 new
                 {
                     Id = id
@@ -42,7 +42,7 @@ namespace Invoice.DAL.Repositories
             string userName)
         {
             return await _connection.QueryFirstOrDefaultAsync<UsersEntity>(
-                "dbo.sp_Users_GetByUserName",
+                "dbo.sp_User_GetByUserName",
                 new
                 {
                     UserName = userName
@@ -54,7 +54,7 @@ namespace Invoice.DAL.Repositories
             string email)
         {
             return await _connection.QueryFirstOrDefaultAsync<UsersEntity>(
-                "dbo.sp_Users_GetByEmail",
+                "dbo.sp_User_GetByEmail",
                 new
                 {
                     Email = email
@@ -87,7 +87,7 @@ namespace Invoice.DAL.Repositories
             };
 
             return await _connection.ExecuteScalarAsync<int>(
-                "dbo.sp_Users_Insert",
+                "dbo.sp_User_Insert",
                 parameters,
                 commandType: CommandType.StoredProcedure);
         }
@@ -119,7 +119,7 @@ namespace Invoice.DAL.Repositories
             parameters.Add("UpdatedBy", user.UpdatedBy);
 
             var result = await _connection.ExecuteAsync(
-                "dbo.sp_Users_Update",
+                "dbo.sp_User_Update",
                 parameters,
                 commandType: CommandType.StoredProcedure);
 
@@ -129,7 +129,7 @@ namespace Invoice.DAL.Repositories
         public async Task<bool> DeleteAsync(int id)
         {
             var result = await _connection.QuerySingleAsync<bool>(
-                "dbo.sp_Users_Delete",
+                "dbo.sp_User_Delete",
                 new
                 {
                     Id = id,
@@ -143,7 +143,7 @@ namespace Invoice.DAL.Repositories
         UsersFilterDto filter)
         {
             using var multi = await _connection.QueryMultipleAsync(
-                "dbo.sp_Users_GetPaged",
+                "dbo.sp_User_GetPaged",
                 new
                 {
                     UserName = filter.UserName,

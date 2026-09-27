@@ -38,8 +38,7 @@ namespace Invoice.DAL.Repositories
                 @State,
                 @Country,
                 @ZipCode,
-                @GstNo,
-                @IsActive",
+                @GstNo",
 
                 new SqlParameter("@VendorCode", entity.VendorCode),
                 new SqlParameter("@VendorName", entity.VendorName),
@@ -52,8 +51,7 @@ namespace Invoice.DAL.Repositories
                 new SqlParameter("@State", (object?)entity.State ?? DBNull.Value),
                 new SqlParameter("@Country", (object?)entity.Country ?? DBNull.Value),
                 new SqlParameter("@ZipCode", (object?)entity.ZipCode ?? DBNull.Value),
-                new SqlParameter("@GstNo", (object?)entity.GstNo ?? DBNull.Value),
-                new SqlParameter("@IsActive", entity.IsActive)
+                new SqlParameter("@GstNo", (object?)entity.GstNo ?? DBNull.Value)
             );
 
             return result;
@@ -76,7 +74,8 @@ namespace Invoice.DAL.Repositories
                 @Country,
                 @ZipCode,
                 @GstNo,
-                @IsActive",
+                @IsActive,
+                @IsDeleted",
 
                 new SqlParameter("@Id", entity.Id),
                 new SqlParameter("@VendorCode", entity.VendorCode),
@@ -91,7 +90,9 @@ namespace Invoice.DAL.Repositories
                 new SqlParameter("@Country", (object?)entity.Country ?? DBNull.Value),
                 new SqlParameter("@ZipCode", (object?)entity.ZipCode ?? DBNull.Value),
                 new SqlParameter("@GstNo", (object?)entity.GstNo ?? DBNull.Value),
-                new SqlParameter("@IsActive", entity.IsActive)
+                new SqlParameter("@IsActive", entity.IsActive),
+                new SqlParameter("@IsDeleted", entity.IsDeleted)
+
             );
 
             return affectedRows > 0;
@@ -127,11 +128,8 @@ namespace Invoice.DAL.Repositories
         public async Task<PagedResultDto<VendorEntity>> GetAllPagedAsync(
             string? VendorCode,
             string? VendorName,
-            string? ContactPerson,
             string? MobileNo,
-            string? Email,
             string? City,
-            bool? IsActive,
             int pageNumber,
             int pageSize)
         {
@@ -146,11 +144,8 @@ namespace Invoice.DAL.Repositories
 
             command.Parameters.Add(new SqlParameter("@VendorCode", (object?)VendorCode ?? DBNull.Value));
             command.Parameters.Add(new SqlParameter("@VendorName", (object?)VendorName ?? DBNull.Value));
-            command.Parameters.Add(new SqlParameter("@ContactPerson", (object?)ContactPerson ?? DBNull.Value));
             command.Parameters.Add(new SqlParameter("@MobileNo", (object?)MobileNo ?? DBNull.Value));
-            command.Parameters.Add(new SqlParameter("@Email", (object?)Email ?? DBNull.Value));
             command.Parameters.Add(new SqlParameter("@City", (object?)City ?? DBNull.Value));
-            command.Parameters.Add(new SqlParameter("@IsActive", (object?)IsActive ?? DBNull.Value));
             command.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
             command.Parameters.Add(new SqlParameter("@PageSize", pageSize));
 
@@ -198,6 +193,17 @@ namespace Invoice.DAL.Repositories
                 Data = items,
                 TotalRecords = totalRecords
             };
+        }
+        public async Task<int> GetVendorCountAsync(bool? activeOnly)
+        {
+            var vendors = await GetAllAsync();
+            var query = vendors.AsEnumerable();
+            if (activeOnly.HasValue)
+            {
+                query = query.Where(x =>
+                    x.IsActive == activeOnly.Value);
+            }
+            return query.Count();
         }
     }
 }
