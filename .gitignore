@@ -10,3 +10,7 @@
 *.user
 *.suo
 *.csproj.user
+
+TestResults/
+coveragereport/
+CoverageReport/
