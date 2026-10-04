@@ -128,7 +128,7 @@ public class UserController : ControllerBase
         [HttpPost("Create")]
         [AllowAnonymous]
         public async Task<IActionResult> Create(
-            [FromBody] UserCreateDto dto)
+            [FromBody] UsersCreateDto dto)
         {
             try
             {
@@ -165,7 +165,7 @@ public class UserController : ControllerBase
         [HttpPut("Update/{id:int}")]
         public async Task<IActionResult> Update(
             int id,
-            [FromBody] UserUpdateDto dto)
+            [FromBody] UsersUpdateDto dto)
         {
             try
             {

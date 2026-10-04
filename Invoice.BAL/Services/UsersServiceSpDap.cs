@@ -1,24 +1,18 @@
-﻿using AutoMapper;
-using InvoiceCoreApi.DTO;
-using InvoiceCoreAPI.Contracts;
-
-using InvoiceCoreAPI.DTO;
-using InvoiceCoreAPI.Models;
-using InvoiceCoreAPI.Entities;
-
-using InvoiceCoreAPI.Repositories;
+﻿using Invoice.BAL.Contracts;
+using Invoice.DAL.Contracts;
+using Invoice.Data.Entities;
+using Invoice.Model;
+using Invoice.DTOs;
 using Microsoft.AspNetCore.Identity;
 
-namespace InvoiceCoreAPI.Services
-
+namespace Invoice.BAL.Services
 {
-
     public class UsersServiceSpDap : IUsersService
 
     {
         private readonly IUsersRepository _repository;
 
-        private readonly PasswordHasher<Users> _passwordHasher;
+        private readonly PasswordHasher<UsersEntity> _passwordHasher;
 
         public UsersServiceSpDap(
             IUsersRepository repository)
@@ -26,7 +20,7 @@ namespace InvoiceCoreAPI.Services
             _repository = repository;
 
             _passwordHasher =
-                new PasswordHasher<Users>();
+                new PasswordHasher<UsersEntity>();
         }
 
         public async Task<ApiResponse<IEnumerable<UserDto>>> GetAllAsync()
@@ -66,7 +60,7 @@ namespace InvoiceCoreAPI.Services
         }
 
         public async Task<ApiResponse<UserDto>> AddAsync(
-            UsersCreateDto dto)
+            UserCreateDto dto)
         {
             var existingUser =
                 await _repository.GetByUserNameAsync(dto.UserName);
@@ -92,7 +86,7 @@ namespace InvoiceCoreAPI.Services
                 };
             }
 
-            var entity = new Users
+            var entity = new UsersEntity
             {
                 UserName = dto.UserName,
                 Email = dto.Email,
@@ -135,7 +129,7 @@ namespace InvoiceCoreAPI.Services
 
         public async Task<ApiResponse<UserDto>> UpdateAsync(
             int id,
-            UsersUpdateDto dto)
+            UserUpdateDto dto)
         {
             var existing =
                 await _repository.GetByIdAsync(id);
@@ -272,13 +266,13 @@ namespace InvoiceCoreAPI.Services
                 return null;
             }
 
-            //await _repository.UpdateLastLoginAsync(user.Id);
+            await _repository.UpdateLastLoginAsync(user.Id);
 
             return MapToDto(user);
         }
 
         private static UserDto MapToDto(
-            Users entity)
+            UsersEntity entity)
         {
             return new UserDto
             {
@@ -305,4 +299,3 @@ namespace InvoiceCoreAPI.Services
     }
 }
 
-        
