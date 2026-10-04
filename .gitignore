@@ -10,7 +10,11 @@
 *.user
 *.suo
 *.csproj.user
+Invoice.CoreAPI/logs/*.txt
+ 
 
 TestResults/
 coveragereport/
 CoverageReport/
+InvoiceCoreAPI/logs/*.txt
+ 
