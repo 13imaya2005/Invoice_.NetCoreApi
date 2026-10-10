@@ -145,8 +145,43 @@ builder.Services.AddAutoMapper(cfg =>
     cfg.AddProfile<VendorProfile>();
 
     cfg.AddProfile<UsersProfile>();
+    cfg.AddProfile<PurchaseOrderProfile>();
+    cfg.AddProfile<ReceiptProfile>();
+    cfg.AddProfile<SalesInvoiceProfile>();
+    cfg.AddProfile<StockProfile>();
 
 });
+// ============================================================
+//  Purchase Order Repository / Service
+// ============================================================
+builder.Services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepositoryEFSp>();
+builder.Services.AddScoped<IPurchaseOrderDetailRepository, PurchaseOrderDetailRepositoryEFSp>();
+builder.Services.AddScoped<IPurchaseOrderService, PurchaseOrderServiceEFSp>();
+
+// ============================================================
+//  Transaction runner (header + details saved atomically)
+// ============================================================
+builder.Services.AddScoped<ITransactionRunner, EfTransactionRunner>();
+
+// ============================================================
+//  Receipt (Goods Receipt) Repository / Service
+// ============================================================
+builder.Services.AddScoped<IReceiptRepository, ReceiptRepositoryEFSp>();
+builder.Services.AddScoped<IReceiptDetailRepository, ReceiptDetailRepositoryEFSp>();
+builder.Services.AddScoped<IReceiptService, ReceiptServiceEFSp>();
+
+// ============================================================
+//  Sales Invoice Repository / Service
+// ============================================================
+builder.Services.AddScoped<ISalesInvoiceRepository, SalesInvoiceRepositoryEFSp>();
+builder.Services.AddScoped<ISalesInvoiceDetailRepository, SalesInvoiceDetailRepositoryEFSp>();
+builder.Services.AddScoped<ISalesInvoiceService, SalesInvoiceServiceEFSp>();
+
+// ============================================================
+//  Stock (read only)
+// ============================================================
+builder.Services.AddScoped<IStockRepository, StockRepositoryEFSp>();
+builder.Services.AddScoped<IStockService, StockServiceEFSp>();
 
 // ============================================================
 

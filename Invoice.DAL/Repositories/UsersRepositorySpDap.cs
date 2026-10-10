@@ -42,7 +42,7 @@ namespace Invoice.DAL.Repositories
             string userName)
         {
             return await _connection.QueryFirstOrDefaultAsync<UsersEntity>(
-                "dbo.sp_User_GetByUserName",
+                "dbo.sp_Users_GetByUserName",
                 new
                 {
                     UserName = userName
@@ -119,7 +119,7 @@ namespace Invoice.DAL.Repositories
             parameters.Add("UpdatedBy", user.UpdatedBy);
 
             var result = await _connection.ExecuteAsync(
-                "dbo.sp_User_Update",
+                "dbo.sp_Users_Update",
                 parameters,
                 commandType: CommandType.StoredProcedure);
 
@@ -129,7 +129,7 @@ namespace Invoice.DAL.Repositories
         public async Task<bool> DeleteAsync(int id)
         {
             var result = await _connection.QuerySingleAsync<bool>(
-                "dbo.sp_User_Delete",
+                "dbo.sp_Users_Delete",
                 new
                 {
                     Id = id,
@@ -143,7 +143,7 @@ namespace Invoice.DAL.Repositories
         UsersFilterDto filter)
         {
             using var multi = await _connection.QueryMultipleAsync(
-                "dbo.sp_User_GetPaged",
+                "dbo.sp_Users_GetPaged",
                 new
                 {
                     UserName = filter.UserName,
@@ -171,7 +171,7 @@ namespace Invoice.DAL.Repositories
         public async Task<bool> UpdateLastLoginAsync(int id)
         {
             var result = await _connection.ExecuteAsync(
-                "dbo.sp_User_UpdateLastLogin",
+                "dbo.sp_Users_UpdateLastLogin",
                 new
                 {
                     Id = id
