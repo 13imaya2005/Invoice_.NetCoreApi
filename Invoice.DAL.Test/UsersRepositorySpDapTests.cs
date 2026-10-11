@@ -678,7 +678,7 @@ public class UserRepositoriesSpDapTests
     // ============================================================
 
     [Fact]
-    public async Task GetPagedAsync_ShouldReturnPagedUsers()
+    public async Task GetPagedAsync_ShouldReturnPagedUser()
     {
         await using var connection = CreateConnection();
         await connection.OpenAsync();
