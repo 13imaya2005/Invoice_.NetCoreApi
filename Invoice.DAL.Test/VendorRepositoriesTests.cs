@@ -777,19 +777,16 @@ public class VendorRepositoriesTests
     {
 
         await using var context = CreateDbContext();
-
         var repository = new VendorRepositories(context);
 
         await CleanupTestDataAsync(context);
 
         var baselineCount =
-
             await repository.GetVendorCountAsync(null);
 
         await SeedTestDataAsync(context);
 
         var result =
-
             await repository.GetVendorCountAsync(null);
 
         // GetVendorCountAsync uses GetAllAsync()

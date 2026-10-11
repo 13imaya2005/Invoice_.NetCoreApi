@@ -119,7 +119,7 @@ namespace Invoice.DAL.Repositories
             parameters.Add("UpdatedBy", user.UpdatedBy);
 
             var result = await _connection.ExecuteAsync(
-                "dbo.sp_Users_Update",
+                "dbo.sp_User_Update",
                 parameters,
                 commandType: CommandType.StoredProcedure);
 
