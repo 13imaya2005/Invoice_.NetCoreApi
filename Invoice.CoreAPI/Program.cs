@@ -233,6 +233,11 @@ builder.Services.AddScoped<IUsersRepository, UsersRepositorySpDap>();
 
 builder.Services.AddScoped<IUsersService, UsersServiceSpDap>();
 
+// ============================================================
+//  Master count Service 
+// ============================================================
+builder.Services.AddScoped<IMasterCountService, MasterCountService>();
+
 
 // ============================================================
 
