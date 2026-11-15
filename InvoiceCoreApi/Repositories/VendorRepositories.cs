@@ -54,39 +54,84 @@ public class VendorRepositories : IVendorRepository
         return result;
     }
 
+
     public async Task<bool> UpdateAsync(Vendor vendor)
     {
         var affectedRows = await _dbContext.Database.ExecuteSqlRawAsync(
-            @"EXEC sp_Vendor_Update
-                @Id,
-                @VendorCode,
-                @VendorName,
-                @ContactPerson,
-                @MobileNo,
-                @Email,
-                @Address1,
-                @Address2,
-                @City,
-                @State,
-                @Country,
-                @ZipCode,
-                @GstNo,
-                @IsActive",
+            @"EXEC dbo.sp_Vendor_Update
+            @Id,
+            @VendorCode,
+            @VendorName,
+            @ContactPerson,
+            @MobileNo,
+            @Email,
+            @Address1,
+            @Address2,
+            @City,
+            @State,
+            @Country,
+            @ZipCode,
+            @GstNo,
+            @IsActive,
+            @IsDeleted",
 
             new SqlParameter("@Id", vendor.Id),
-            new SqlParameter("@VendorCode", vendor.VendorCode),
-            new SqlParameter("@VendorName", vendor.VendorName),
-            new SqlParameter("@ContactPerson", (object?)vendor.ContactPerson ?? DBNull.Value),
-            new SqlParameter("@MobileNo", (object?)vendor.MobileNo ?? DBNull.Value),
-            new SqlParameter("@Email", (object?)vendor.Email ?? DBNull.Value),
-            new SqlParameter("@Address1", (object?)vendor.Address1 ?? DBNull.Value),
-            new SqlParameter("@Address2", (object?)vendor.Address2 ?? DBNull.Value),
-            new SqlParameter("@City", (object?)vendor.City ?? DBNull.Value),
-            new SqlParameter("@State", (object?)vendor.State ?? DBNull.Value),
-            new SqlParameter("@Country", (object?)vendor.Country ?? DBNull.Value),
-            new SqlParameter("@ZipCode", (object?)vendor.ZipCode ?? DBNull.Value),
-            new SqlParameter("@GstNo", (object?)vendor.GstNo ?? DBNull.Value),
-            new SqlParameter("@IsActive", vendor.IsActive)
+            new SqlParameter("@VendorCode", SqlDbType.VarChar, 20)
+            {
+                Value = vendor.VendorCode
+            },
+            new SqlParameter("@VendorName", SqlDbType.NVarChar, 100)
+            {
+                Value = vendor.VendorName
+            },
+            new SqlParameter("@ContactPerson", SqlDbType.NVarChar, 100)
+            {
+                Value = (object?)vendor.ContactPerson ?? DBNull.Value
+            },
+            new SqlParameter("@MobileNo", SqlDbType.VarChar, 20)
+            {
+                Value = (object?)vendor.MobileNo ?? DBNull.Value
+            },
+            new SqlParameter("@Email", SqlDbType.VarChar, 100)
+            {
+                Value = (object?)vendor.Email ?? DBNull.Value
+            },
+            new SqlParameter("@Address1", SqlDbType.NVarChar, 200)
+            {
+                Value = (object?)vendor.Address1 ?? DBNull.Value
+            },
+            new SqlParameter("@Address2", SqlDbType.NVarChar, 200)
+            {
+                Value = (object?)vendor.Address2 ?? DBNull.Value
+            },
+            new SqlParameter("@City", SqlDbType.NVarChar, 100)
+            {
+                Value = (object?)vendor.City ?? DBNull.Value
+            },
+            new SqlParameter("@State", SqlDbType.NVarChar, 100)
+            {
+                Value = (object?)vendor.State ?? DBNull.Value
+            },
+            new SqlParameter("@Country", SqlDbType.NVarChar, 100)
+            {
+                Value = (object?)vendor.Country ?? DBNull.Value
+            },
+            new SqlParameter("@ZipCode", SqlDbType.VarChar, 20)
+            {
+                Value = (object?)vendor.ZipCode ?? DBNull.Value
+            },
+            new SqlParameter("@GstNo", SqlDbType.VarChar, 50)
+            {
+                Value = (object?)vendor.GstNo ?? DBNull.Value
+            },
+            new SqlParameter("@IsActive", SqlDbType.Bit)
+            {
+                Value = vendor.IsActive
+            },
+            new SqlParameter("@IsDeleted", SqlDbType.Bit)
+            {
+                Value = vendor.IsDeleted
+            }
         );
 
         return affectedRows > 0;

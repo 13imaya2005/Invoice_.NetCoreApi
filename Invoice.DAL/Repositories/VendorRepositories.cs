@@ -57,29 +57,39 @@ namespace Invoice.DAL.Repositories
             return result;
         }
 
+
         public async Task<bool> UpdateAsync(VendorEntity entity)
         {
             var affectedRows = await _dbContext.Database.ExecuteSqlRawAsync(
-                @"EXEC sp_Vendor_Update
-                @Id,
-                @VendorCode,
-                @VendorName,
-                @ContactPerson,
-                @MobileNo,
-                @Email,
-                @Address1,
-                @Address2,
-                @City,
-                @State,
-                @Country,
-                @ZipCode,
-                @GstNo,
-                @IsActive,
-                @IsDeleted",
+                @"EXEC dbo.sp_Vendor_Update
+            @Id = @Id,
+            @VendorCode = @VendorCode,
+            @VendorName = @VendorName,
+            @ContactPerson = @ContactPerson,
+            @MobileNo = @MobileNo,
+            @Email = @Email,
+            @Address1 = @Address1,
+            @Address2 = @Address2,
+            @City = @City,
+            @State = @State,
+            @Country = @Country,
+            @ZipCode = @ZipCode,
+            @GstNo = @GstNo,
+            @IsActive = @IsActive,
+            @IsDeleted = @IsDeleted",
 
-                new SqlParameter("@Id", entity.Id),
-                new SqlParameter("@VendorCode", entity.VendorCode),
-                new SqlParameter("@VendorName", entity.VendorName),
+                new SqlParameter("@Id", SqlDbType.Int)
+                {
+                    Value = entity.Id
+                },
+                new SqlParameter("@VendorCode", SqlDbType.NVarChar, 20)
+                {
+                    Value = (object?)entity.VendorCode ?? DBNull.Value
+                },
+                new SqlParameter("@VendorName", SqlDbType.NVarChar, 100)
+                {
+                    Value = (object?)entity.VendorName ?? DBNull.Value
+                },
                 new SqlParameter("@ContactPerson", (object?)entity.ContactPerson ?? DBNull.Value),
                 new SqlParameter("@MobileNo", (object?)entity.MobileNo ?? DBNull.Value),
                 new SqlParameter("@Email", (object?)entity.Email ?? DBNull.Value),
@@ -90,13 +100,19 @@ namespace Invoice.DAL.Repositories
                 new SqlParameter("@Country", (object?)entity.Country ?? DBNull.Value),
                 new SqlParameter("@ZipCode", (object?)entity.ZipCode ?? DBNull.Value),
                 new SqlParameter("@GstNo", (object?)entity.GstNo ?? DBNull.Value),
-                new SqlParameter("@IsActive", entity.IsActive),
-                new SqlParameter("@IsDeleted", entity.IsDeleted)
-
+               new SqlParameter("@IsActive", SqlDbType.Bit)
+               {
+                   Value = (object?)entity.IsActive ?? false
+               },
+              new SqlParameter("@IsDeleted", SqlDbType.Bit)
+               {
+                   Value = (object?)entity.IsDeleted ?? false
+               }
             );
 
             return affectedRows > 0;
         }
+
 
         public async Task<VendorEntity?> GetByIdAsync(int id)
         {
