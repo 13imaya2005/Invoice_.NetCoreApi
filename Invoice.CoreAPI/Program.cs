@@ -1,36 +1,21 @@
-using Invoice.BAL.Contracts;
-
-using Invoice.BAL.Mapper;
-
-using Invoice.BAL.Services;
-
-using Invoice.DAL.Contracts;
-
-using Invoice.DAL.Repositories;
-
-using Invoice.Data.Db;
-
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-
-using Microsoft.IdentityModel.Tokens;
-
-using Microsoft.Data.SqlClient;
-
-using Microsoft.EntityFrameworkCore;
-
-using Microsoft.OpenApi;
-
-using System.Data;
-
-using System.Text;
-
-using Invoice.CoreAPI.Middleware;
-
-using Serilog;
-
 using Asp.Versioning;
-
 using Invoice.AI;
+using Invoice.BAL.Contracts;
+using Invoice.BAL.Mapper;
+using Invoice.BAL.Services;
+using Invoice.CoreAPI.Middleware;
+using Invoice.DAL.Contracts;
+using Invoice.DAL.Repositories;
+using Invoice.Data.Db;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
+using Serilog;
+using System.Data;
+using System.Text;
 ;
 Log.Logger = new LoggerConfiguration()
 
@@ -49,6 +34,23 @@ builder.Host.UseSerilog();
 // ============================================================
 
 builder.Services.AddControllers();
+
+// ============================================================
+// CORS Configuration - Angular
+// ============================================================
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("_allowAngular", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+// ============================================================
+// API Versioning//
+// ============================================================
+
 
 builder.Services
 
@@ -400,8 +402,6 @@ builder.Services
 
 builder.Services.AddAuthorization();
 
-
-// ============================================================
 builder.Services.AddInvoiceAI(builder.Configuration);
 
 var app = builder.Build();
@@ -431,6 +431,13 @@ app.UseSwaggerUI(options =>
 
 });
 
+// ============================================================
+// CORS Middleware
+// ============================================================
+app.UseRouting();
+app.UseCors("_allowAngular");
+
+
 
 // ============================================================
 
@@ -439,7 +446,6 @@ app.UseSwaggerUI(options =>
 // ============================================================
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 

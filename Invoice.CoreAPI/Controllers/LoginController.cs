@@ -11,7 +11,7 @@ namespace Invoice.CoreAPI.Controllers;
 
 [ApiController]
 
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 
 public class LoginController : ControllerBase
 
