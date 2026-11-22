@@ -22,11 +22,9 @@ public interface ICategoryService
     Task<PagedResultDto<CategoryDto>> GetAllPagedAsync(
 
 string? Code,
-
 string? Name,
-
+bool? IsActive,
 int pageNumber,
-
 int pageSize);
 
 }

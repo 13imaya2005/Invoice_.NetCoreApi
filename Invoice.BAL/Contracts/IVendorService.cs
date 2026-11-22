@@ -22,6 +22,7 @@ public interface IVendorService
         string? VendorName,
         string? MobileNo,
         string? City,
+        bool? IsActive,
         int pageNumber,
         int pageSize);
 }

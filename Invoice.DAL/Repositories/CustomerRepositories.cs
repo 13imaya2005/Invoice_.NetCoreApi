@@ -79,8 +79,8 @@ namespace Invoice.DAL.Repositories
         @Country,
         @ZipCode,
         @GstNo,
-        @IsDeleted,
-        @IsActive",
+         @IsActive,
+         @IsDeleted",
 
                 new SqlParameter("@Id", entity.Id),
                 new SqlParameter("@CustomerCode", entity.CustomerCode),
@@ -95,8 +95,8 @@ namespace Invoice.DAL.Repositories
                 new SqlParameter("@Country", (object?)entity.Country ?? DBNull.Value),
                 new SqlParameter("@ZipCode", (object?)entity.ZipCode ?? DBNull.Value),
                 new SqlParameter("@GstNo", (object?)entity.GstNo ?? DBNull.Value),
-                new SqlParameter("IsDeleted",entity.IsDeleted),
-                new SqlParameter("@IsActive", entity.IsActive)
+             new SqlParameter("@IsActive", entity.IsActive),
+             new SqlParameter("@IsDeleted", entity.IsDeleted)
             );
 
             return true;
@@ -152,12 +152,9 @@ namespace Invoice.DAL.Repositories
 
     string? CustomeName,
     string? MobileNo,
-
     string? City,
-   
-
+    bool? IsActive,
     int pageNumber,
-
     int pageSize)
 
 
@@ -183,6 +180,8 @@ namespace Invoice.DAL.Repositories
                command.Parameters.Add(new SqlParameter("@MobileNo",(Object?)MobileNo?? DBNull.Value));
 
                command.Parameters.Add(new SqlParameter("@City",(Object?)City ?? DBNull.Value));
+
+                command.Parameters.Add( new SqlParameter("@IsActive", (object?)IsActive ?? DBNull.Value));
 
                 command.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
 

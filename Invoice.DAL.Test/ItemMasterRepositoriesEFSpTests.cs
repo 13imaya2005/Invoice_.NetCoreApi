@@ -625,6 +625,8 @@ public class ItemmasterRepositoriesTests
 
         {
 
+            ItemName = "Test",
+
             PageNumber = 1,
 
             PageSize = 2

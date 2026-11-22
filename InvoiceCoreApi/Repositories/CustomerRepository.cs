@@ -82,7 +82,7 @@ public class CustomerRepositories : ICustomerRepoitory
         @Country,
         @ZipCode,
         @GstNo,
-        @IsActive",
+         @IsActive",
 
             new SqlParameter("@Id", customer.Id),
             new SqlParameter("@CustomerCode", customer.CustomerCode),
@@ -97,7 +97,7 @@ public class CustomerRepositories : ICustomerRepoitory
             new SqlParameter("@Country", (object?)customer.Country ?? DBNull.Value),
             new SqlParameter("@ZipCode", (object?)customer.ZipCode ?? DBNull.Value),
             new SqlParameter("@GstNo", (object?)customer.GstNo ?? DBNull.Value),
-            new SqlParameter("@IsActive", customer.IsActive)
+             new SqlParameter("@IsActive", customer.IsActive)
         );
 
         return true;

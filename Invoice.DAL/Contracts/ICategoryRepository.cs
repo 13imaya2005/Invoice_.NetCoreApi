@@ -29,6 +29,8 @@ namespace Invoice.DAL.Contracts
 
         string? Name,
 
+        bool? IsActive,
+
         int pageNumber,
 
         int pageSize);

@@ -407,6 +407,7 @@ CREATE OR ALTER PROCEDURE dbo.sp_Customer_GetPaged
     @CustomerName VARCHAR(100) = NULL,
     @MobileNo NVARCHAR(20) = NULL,
     @City NVARCHAR(100) = NULL,
+    @IsActive BIT = NULL,
     @PageNumber INT = 1,
     @PageSize INT = 10
 AS
@@ -456,6 +457,9 @@ BEGIN
         AND
         (@City IS NULL
             OR City LIKE '%' + @City + '%')
+        AND
+        (@IsActive IS NULL
+            OR IsActive = @IsActive)
     ORDER BY Id ASC
     OFFSET @Offset ROWS
     FETCH NEXT @PageSize ROWS ONLY;
@@ -473,7 +477,10 @@ BEGIN
             OR MobileNo LIKE '%' + @MobileNo + '%')
         AND
         (@City IS NULL
-            OR City LIKE '%' + @City + '%');
+            OR City LIKE '%' + @City + '%')
+        AND
+        (@IsActive IS NULL
+            OR IsActive = @IsActive);
 END
 GO
 
@@ -1560,6 +1567,7 @@ CREATE OR ALTER PROCEDURE dbo.sp_Vendor_GetPaged
     @VendorName VARCHAR(100) = NULL,
     @MobileNo NVARCHAR(20) = NULL,
     @City NVARCHAR(100) = NULL,
+    @IsActive BIT = NULL,
     @PageNumber INT = 1,
     @PageSize INT = 10
 AS
@@ -1608,6 +1616,9 @@ BEGIN
         AND
         (@City IS NULL
             OR City LIKE '%' + @City + '%')
+        AND
+        (@IsActive IS NULL
+            OR IsActive = @IsActive)
     ORDER BY Id ASC
     OFFSET @Offset ROWS
     FETCH NEXT @PageSize ROWS ONLY;
@@ -1626,7 +1637,10 @@ BEGIN
             OR MobileNo LIKE '%' + @MobileNo + '%')
         AND
         (@City IS NULL
-            OR City LIKE '%' + @City + '%');
+            OR City LIKE '%' + @City + '%')
+        AND
+        (@IsActive IS NULL
+            OR IsActive = @IsActive);
 END
 GO
 

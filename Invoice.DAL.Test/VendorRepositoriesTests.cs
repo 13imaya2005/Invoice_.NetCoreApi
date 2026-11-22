@@ -618,6 +618,8 @@ public class VendorRepositoriesTests
 
             null,
 
+            true,
+
             1,
 
             2);
@@ -626,7 +628,7 @@ public class VendorRepositoriesTests
 
         Assert.Equal(2, result.Data.Count());
 
-        Assert.True(result.TotalRecords >= 4);
+        Assert.True(result.TotalRecords >= 3);
 
     }
 
@@ -657,6 +659,8 @@ public class VendorRepositoriesTests
             null,
 
             null,
+
+            true,
 
             1,
 
@@ -702,6 +706,8 @@ public class VendorRepositoriesTests
 
             null,
 
+            true,
+
             1,
 
             10);
@@ -745,6 +751,8 @@ public class VendorRepositoriesTests
             null,
 
             "Chennai",
+
+            null,
 
             1,
 

@@ -26,6 +26,7 @@ namespace Invoice.DAL.Contracts
             string? VendorName,
             string? MobileNo,
             string? City,
+            bool? IsActive,
             int pageNumber,
             int pageSize);
 

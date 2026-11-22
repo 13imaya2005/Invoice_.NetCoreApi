@@ -146,6 +146,7 @@ namespace Invoice.DAL.Repositories
             string? VendorName,
             string? MobileNo,
             string? City,
+            bool? IsActive,
             int pageNumber,
             int pageSize)
         {
@@ -162,6 +163,7 @@ namespace Invoice.DAL.Repositories
             command.Parameters.Add(new SqlParameter("@VendorName", (object?)VendorName ?? DBNull.Value));
             command.Parameters.Add(new SqlParameter("@MobileNo", (object?)MobileNo ?? DBNull.Value));
             command.Parameters.Add(new SqlParameter("@City", (object?)City ?? DBNull.Value));
+            command.Parameters.Add(new SqlParameter("@IsActive", (object?)IsActive ?? DBNull.Value));
             command.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
             command.Parameters.Add(new SqlParameter("@PageSize", pageSize));
 

@@ -277,6 +277,7 @@ public class CategoryController : ControllerBase
     public async Task<IActionResult> GetAllPaged(
         [FromQuery] string? Code,
         [FromQuery] string? Name,
+        [FromQuery] bool? IsActive,
         [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 10)
     {
@@ -306,6 +307,7 @@ public class CategoryController : ControllerBase
                 await _service.GetAllPagedAsync(
                     Code,
                     Name,
+                    IsActive,
                     pageNumber,
                     pageSize);
 
