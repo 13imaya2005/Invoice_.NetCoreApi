@@ -838,6 +838,8 @@ CREATE PROCEDURE [dbo].[sp_Customer_GetPaged]
 
     @CustomerCode VARCHAR(20) = NULL,
     @CustomerName NVARCHAR(100) = NULL,
+    @MobileNo NVARCHAR(20) = NULL,
+    @City NVARCHAR(100) = NULL,
     @IsActive BIT = NULL,
     @PageNumber INT = 1,
     @PageSize INT = 10
@@ -884,6 +886,10 @@ BEGIN
 
         AND (@CustomerName IS NULL OR CustomerName LIKE '%' + @CustomerName + '%')
 
+        AND (@MobileNo IS NULL OR MobileNo LIKE '%' + @MobileNo + '%')
+
+        AND (@City IS NULL OR City LIKE '%' + @City + '%')
+
         AND (@IsActive IS NULL OR IsActive = @IsActive)
 
     ORDER BY Id ASC
@@ -903,6 +909,10 @@ BEGIN
         (@CustomerCode IS NULL OR CustomerCode LIKE '%' + @CustomerCode + '%')
 
         AND (@CustomerName IS NULL OR CustomerName LIKE '%' + @CustomerName + '%')
+
+        AND (@MobileNo IS NULL OR MobileNo LIKE '%' + @MobileNo + '%')
+
+        AND (@City IS NULL OR City LIKE '%' + @City + '%')
 
         AND (@IsActive IS NULL OR IsActive = @IsActive);
 

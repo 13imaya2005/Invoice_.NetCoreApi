@@ -24,7 +24,9 @@ public class CustomerController : ControllerBase
         _logger = logger;
     }
 
-    // ============================================================// GET: api/v1/Customer/GetAll// ============================================================
+    // ============================================================
+    // GET: api/v1/Customer/GetAll
+    // ============================================================
     [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll()
     {
@@ -58,7 +60,9 @@ public class CustomerController : ControllerBase
         }
     }
 
-    // ============================================================// GET: api/v1/Customer/GetById/1// ============================================================
+    // ============================================================
+    // GET: api/v1/Customer/GetById/1
+    // ============================================================
     [HttpGet("GetById/{id:int}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -137,7 +141,9 @@ public class CustomerController : ControllerBase
         }
     }
 
-    // ============================================================// PUT: api/v1/Customer/Update/1// ============================================================
+    // ============================================================
+    // PUT: api/v1/Customer/Update/1
+    // ============================================================
     [HttpPut("Update/{id:int}")]
     public async Task<IActionResult> Update(int id,[FromBody] CustomerDto dto)
     {
@@ -183,7 +189,9 @@ public class CustomerController : ControllerBase
         }
     }
 
-    // ============================================================// DELETE: api/v1/Customer/Delete/1// ============================================================
+    // ============================================================
+    //DELETE: api/v1/Customer/Delete/1
+    // ============================================================
     [HttpDelete("Delete/{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -226,13 +234,16 @@ public class CustomerController : ControllerBase
         }
     }
 
-    // ============================================================// GET:// api/v1/Customer/GetAllPaged//// Example:// ?CustomerCode=C001// &CustomerName=ABC// &MobileNo=123// &City=Chennai// &pageNumber=1// &pageSize=10// ============================================================
+    // ============================================================
+    // GET:// api/v1/Customer/GetAllPaged//// Example:// ?CustomerCode=C001// &CustomerName=ABC// &MobileNo=123// &City=Chennai// &pageNumber=1// &pageSize=10
+    // ============================================================
     [HttpGet("GetAllPaged")]
     public async Task<IActionResult> GetAllPaged(
         string? CustomerCode,
         string? CustomerName,
         string? MobileNo,
         string? City,
+        bool?IsActive,
         int pageNumber = 1,
         int pageSize = 10)
     {
@@ -243,6 +254,7 @@ public class CustomerController : ControllerBase
                 CustomerName,
                 MobileNo,
                 City,
+                IsActive,
                 pageNumber,
                 pageSize);
 

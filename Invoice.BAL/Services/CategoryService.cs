@@ -73,18 +73,16 @@ public class CategoryService : ICategoryService
     public async Task<PagedResultDto<CategoryDto>> GetAllPagedAsync(
 
 string? catCode,
-
 string? itemName,
-
+bool? isActive,
 int pageNumber,
-
 int pageSize)
 
     {
 
         var result = await _repository.GetAllPagedAsync(
 
-            catCode, itemName, pageNumber, pageSize);
+            catCode, itemName, isActive, pageNumber, pageSize);
 
         return new PagedResultDto<CategoryDto>
 

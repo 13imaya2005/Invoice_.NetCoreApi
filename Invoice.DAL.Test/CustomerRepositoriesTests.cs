@@ -576,6 +576,8 @@ public class CustomerRepositoriesTests
 
             null,
 
+            null,
+
             1,
 
             2);
@@ -609,6 +611,8 @@ public class CustomerRepositoriesTests
         var result = await repository.GetAllPagedAsync(
 
             "TSTC001",
+
+            null,
 
             null,
 
@@ -658,6 +662,8 @@ public class CustomerRepositoriesTests
 
             null,
 
+            null,
+
             1,
 
             10);
@@ -699,6 +705,8 @@ public class CustomerRepositoriesTests
             null,
 
             "Chennai",
+
+            null,
 
             1,
 

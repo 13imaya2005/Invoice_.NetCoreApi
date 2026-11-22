@@ -535,6 +535,7 @@ public class CustomerControllerTests
                 Id = 1,
                 CustomerCode = "C001",
                 CustomerName = "ABC Customer",
+                MobileNo ="1111111111",
                 City = "Chennai",
                 IsActive = true
             },
@@ -543,6 +544,7 @@ public class CustomerControllerTests
                 Id = 2,
                 CustomerCode = "C002",
                 CustomerName = "XYZ Customer",
+                MobileNo = "1111111111",
                 City = "Villupuram",
                 IsActive = true
             }
@@ -560,6 +562,7 @@ public class CustomerControllerTests
                 "Customer",
                 "111",
                 "Chennai",
+                true,
                 1,
                 10))
             .ReturnsAsync(pagedResult);
@@ -570,6 +573,7 @@ public class CustomerControllerTests
             "Customer",
             "111",
             "Chennai",
+            true,
             1,
             10);
 
@@ -600,6 +604,7 @@ public class CustomerControllerTests
                 "Customer",
                 "111",
                 "Chennai",
+                true,
                 1,
                 10),
             Times.Once);
@@ -622,12 +627,14 @@ public class CustomerControllerTests
                 null,
                 null,
                 null,
+                null,
                 1,
                 10))
             .ReturnsAsync(pagedResult);
 
         // Act
         var response = await _controller.GetAllPaged(
+            null,
             null,
             null,
             null,
@@ -650,6 +657,7 @@ public class CustomerControllerTests
                 null,
                 null,
                 null,
+                null,
                 1,
                 10),
             Times.Once);
@@ -666,6 +674,7 @@ public class CustomerControllerTests
                 "Customer",
                 "111",
                 "Chennai",
+                true,
                 1,
                 10))
             .ThrowsAsync(new Exception("Paging failed"));
@@ -676,6 +685,7 @@ public class CustomerControllerTests
             "Customer",
             "111",
             "Chennai",
+            true,
             1,
             10);
 
